@@ -1,0 +1,87 @@
+<!-- src/app/features/product-form/product-form.component.html -->
+<div class="container my-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">
+      {{ editingProduct ? 'Modifier un produit' : 'Ajouter un produit' }}
+    </h1>
+
+    <!-- Bouton vers la liste -->
+    <a class="btn btn-outline-secondary btn-sm" routerLink="/products">
+      Voir les produits existants
+    </a>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" aria-label="Close" (click)="successMessage = null"></button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ errorMessage }}
+    <button type="button" class="btn-close" aria-label="Close" (click)="errorMessage = null"></button>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="card">
+        <div class="card-body">
+
+          <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <!-- Nom -->
+            <div class="mb-3">
+              <label class="form-label">Nom :</label>
+              <input type="text" class="form-control" formControlName="name">
+              <div class="text-danger small"
+                   *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+                Le nom est obligatoire.
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label class="form-label">Description :</label>
+              <input type="text" class="form-control" formControlName="description">
+            </div>
+
+            <!-- Prix -->
+            <div class="mb-3">
+              <label class="form-label">Prix :</label>
+              <input type="number" class="form-control" formControlName="price">
+              <div class="text-danger small"
+                   *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+                <span *ngIf="productForm.get('price')?.errors?.['required']">
+                  Le prix est obligatoire.
+                </span>
+                <span *ngIf="productForm.get('price')?.errors?.['min']">
+                  Le prix ne peut pas être négatif.
+                </span>
+              </div>
+            </div>
+
+            <!-- Stock -->
+            <div class="mb-3">
+              <label class="form-label">Stock :</label>
+              <input type="number" class="form-control" formControlName="stock">
+              <div class="text-danger small"
+                   *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
+                <span *ngIf="productForm.get('stock')?.errors?.['required']">
+                  Le stock est obligatoire.
+                </span>
+                <span *ngIf="productForm.get('stock')?.errors?.['min']">
+                  Le stock ne peut pas être négatif.
+                </span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              {{ editingProduct ? 'Mettre à jour' : 'Ajouter le produit' }}
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

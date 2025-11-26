@@ -1,0 +1,83 @@
+<!-- src/app/features/product-list/product-list.component.html -->
+<div class="container my-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Produits existants</h1>
+
+    <!-- Bouton vers la page d'ajout -->
+    <a class="btn btn-primary btn-sm" routerLink="/add">
+      Ajouter un produit
+    </a>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" aria-label="Close" (click)="successMessage = null"></button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ errorMessage }}
+    <button type="button" class="btn-close" aria-label="Close" (click)="errorMessage = null"></button>
+  </div>
+
+  <!-- Barre de recherche -->
+  <div class="row mb-3">
+    <div class="col-md-4 ms-auto">
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        placeholder="Rechercher (nom, description, statut...)"
+        (input)="onSearch($any($event.target).value)">
+    </div>
+  </div>
+
+  <ng-container *ngIf="products$ | async as products; else loading">
+    <table *ngIf="products.length > 0; else noData"
+           class="table table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Stock</th>
+          <th>Statut</th>
+          <th>Créé le</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of (products | productFilter: searchTerm)">
+          <td>{{ p.id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.description }}</td>
+          <td>{{ p.price }}</td>
+          <td>{{ p.stock }}</td>
+          <td>{{ getStatusLabel(p.status) }}</td>
+          <td>{{ p.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>
+            <!-- Lien vers la page d'édition -->
+            <a class="btn btn-sm btn-outline-primary me-2" [routerLink]="['/edit', p.id]">
+              Modifier
+            </a>
+            <button type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="onDelete(p)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <ng-template #loading>
+    <p>Chargement...</p>
+  </ng-template>
+
+  <ng-template #noData>
+    <p>Aucun produit pour le moment.</p>
+  </ng-template>
+
+</div>
