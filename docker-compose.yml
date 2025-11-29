@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # -------------------- 1. BASE DE DONNÉES (PostgreSQL) --------------------
+  db:
+    image: postgres:14-alpine # Utilisation d'une image officielle
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user 
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: inventory_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persistance des données
+    restart: always
+
+  # -------------------- 2. BACK-END (Spring Boot API) --------------------
+  backend:
+    build: 
+      context: ./backend # Construit si l'image n'existe pas
+    image: inventory-backend:1.0 # Image construite
+    container_name: inventory_api
+    depends_on:
+      - db # Démarre après la DB
+    environment:
+      # Connexion à 'db' sur son port interne 5432
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/inventory_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080" # Mapping du port de l'API
+
+  # -------------------- 3. FRONT-END (Angular + Nginx) --------------------
+  frontend:
+    build:
+      context: ./frontend # Construit si l'image n'existe pas
+    image: inventory-frontend:1.0 # Image construite
+    container_name: inventory_web
+    depends_on:
+      - backend # Démarre après l'API
+    ports:
+      - "8083:80" # http://localhost
+
+# -------------------- VOLUMES (Stockage permanent) --------------------
+volumes:
+  postgres_data: {}
