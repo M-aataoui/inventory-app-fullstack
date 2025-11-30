@@ -1,15 +1,15 @@
-// src/app/services/product.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private apiUrl = 'http://localhost:8080/api/products';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -26,9 +26,6 @@ export class ProductService {
   }
 
   update(product: Product): Observable<Product> {
-    if (!product.id) {
-      throw new Error('Product id is required for update');
-    }
     return this.http.put<Product>(`${this.apiUrl}/${product.id}`, product);
   }
 
