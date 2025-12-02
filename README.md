@@ -77,8 +77,10 @@ The application has been deployed to an AWS EC2 Ubuntu instance using:
 
 - Docker & Docker Compose  
 - Nginx as a reverse proxy  
-- Appropriate AWS Security Group rules  
+- Appropriate AWS Security Group rules
 
+  See detailed deployment and UI screenshots here:  
+[View screenshots](./screenshots_deployment.md)
 
 
 ##  Author
