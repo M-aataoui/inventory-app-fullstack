@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/M-aataoui/inventory-app-fullstack.git'
-            }
-        }
-
         stage('Build Backend') {
             steps {
                 dir('backend') {
