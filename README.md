@@ -80,6 +80,32 @@ The application has been deployed to an AWS EC2 Ubuntu instance using:
 - Appropriate AWS Security Group rules  
 
 ---
+---
+
+##  Deployment Screenshots
+
+### EC2 Dashboard
+<img src="./assets/screenshots/ec2_dashboard.png" width="800"/>
+
+### Public IP Used for Deployment
+<img src="./assets/screenshots/public_ip.png" width="800"/>
+
+### Running Containers via SSH
+<img src="./assets/screenshots/ssh_docker.png" width="800"/>
+
+### Jenkins CI Pipeline
+<img src="./assets/screenshots/jenkins_pipeline.png" width="800"/>
+
+### Products List UI
+<img src="./assets/screenshots/products_list.png" width="800"/>
+
+### Add Product UI
+<img src="./assets/screenshots/add_product.png" width="800"/>
+
+### Security Groups Configuration
+<img src="./assets/screenshots/security_groups.png" width="800"/>
+
+---
 
 ##  Author
 
