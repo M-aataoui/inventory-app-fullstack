@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/M-aataoui/inventory-app-fullstack.git'
+            }
+        }
 
         stage('Build Backend') {
             steps {
@@ -19,6 +24,5 @@ pipeline {
                 }
             }
         }
-
     }
 }
