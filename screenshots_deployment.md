@@ -12,6 +12,12 @@
   <img src="./assets/screenshots/public_ip.png" width="900"/>
 </p>
 
+## Security Group Rules
+---
+<p align="center">
+  <img src="./assets/screenshots/security_groups.png" width="900"/>
+</p>
+
 ## Running Containers via SSH
 ---
 <p align="center">
@@ -36,8 +42,4 @@
   <img src="./assets/screenshots/add_product.png" width="900"/>
 </p>
 
-## Security Group Rules
----
-<p align="center">
-  <img src="./assets/screenshots/security_groups.png" width="900"/>
-</p>
+
