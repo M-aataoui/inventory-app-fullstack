@@ -20,12 +20,5 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t inventory-backend ./backend'
-                sh 'docker build -t inventory-frontend ./frontend'
-            }
-        }
-
     }
 }
